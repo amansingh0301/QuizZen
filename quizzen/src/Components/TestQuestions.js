@@ -22,7 +22,7 @@ function Questions(props) {
   const classes = useStyles();
   useEffect(async () => {
     console.log('fetching from:',props.topic);
-    const fetchedQuestions = await fetch(`http://quizzendeepayush.herokuapp.com/?topic=${props.topic}`)
+    const fetchedQuestions = await fetch(`https://quizzendeepayush.herokuapp.com/?topic=${props.topic}`)
       .then(async(res) => {
         // console.log(res.body);
         // const t = await JSON.parse(res.body);
