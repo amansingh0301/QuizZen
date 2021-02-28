@@ -21,7 +21,7 @@ function Navigator(props) {
         <SimpleRoute path="/register" exact component={Register} />
         <ProtectedRoute path="/ready" exact component={Page2} />
         <ProtectedRoute path="/room" exact component={Page3} />
-        <ProtectedRoute path="/test" exact component={Page4} />
+        <ProtectedRoute path="/test" state={props.state} exact component={Page4} />
 
       </Switch>
     </Router>

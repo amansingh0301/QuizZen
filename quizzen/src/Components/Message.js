@@ -44,12 +44,17 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+var topic='GK';
+
 function Message(props) {
   console.log("Activity : ", props);
   const classes = useStyles();
   const [refferrer, setRefferrer] = useState(false);
+  // const [topic,setTopic] = useState('GK');
 
-  const startTest = () => {
+  const startTest = (e) => {
+    console.log('topic:',topic)
+    
     setRefferrer(true);
   };
 
@@ -65,24 +70,30 @@ function Message(props) {
             </div>
           </ListItem>
         );
-      else
+      else{
         return (
           <ListItem className={classes.currentUserChat}>{msg.msg}</ListItem>
         );
-    } else
-      return (
-        <ListItem className={classes.test}>
-          {msg.msg}
-          {"  "}
-          <Button variant="contained" onClick={startTest}>
-            <Typography>Start test</Typography>
-          </Button>
-        </ListItem>
-      );
+      }
+    } else{
+      topic=msg.msg;
+        return (
+          <ListItem className={classes.test}>
+            {msg.msg}
+            {"  "}
+            <Button variant="contained" onClick={startTest} value={msg.msg}>
+              <Typography>Start test</Typography>
+            </Button>
+          </ListItem>
+        );
+      }
   }
 
   return refferrer === true ? (
-    <Redirect to="/test" />
+    <Redirect to={{
+      pathname: "/test",
+      state: { topic: topic }
+    }} />
   ) : (
     <div>
       <List className={classes.scrollMenu} id="textChat">
