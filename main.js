@@ -257,16 +257,29 @@ webSocket.on("request", async (req) => {
 const findRoom = (data,connection) => {
   const roomName = data.room;
   if((rooms.length === 0 || rooms.length>0) && data.type==='create'){
-    rooms.push({
-      room:roomName,
-      users :[
-        {
-          user:data.user,
-          conn:connection
+    if(rooms.length ==0 ){
+      rooms.push({
+        room:roomName,
+        users :[
+          {
+            user:data.user,
+            conn:connection
+          }
+        ]
+      })
+      return 0;
+    }else{
+      for(var i=0;i<rooms.length;i++){
+        if(rooms[i].room == roomName){
+          rooms[i].users.push({
+            user:data.user,
+            conn:connection
+          })
+          return i;
         }
-      ]
-    })
-    return 0;
+      }
+    }
+    
   }else if(rooms.length > 0 && data.type === 'join'){
     for(var i=0;i<rooms.length;i++){
       if(rooms[i].room == roomName){
