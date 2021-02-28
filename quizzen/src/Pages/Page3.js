@@ -5,7 +5,8 @@ import Message from "../Components/Message";
 import { makeStyles } from "@material-ui/styles";
 import TextField from "@material-ui/core/TextField";
 
-const url = "wss://quizzen-app.herokuapp.com";
+// const url = "wss://quizzen-app.herokuapp.com";
+const url = "ws://localhost:4000";
 var connection;
 
 const useStyles = makeStyles(() => ({

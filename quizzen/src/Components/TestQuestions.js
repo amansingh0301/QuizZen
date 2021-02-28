@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Typography, TextField } from "@material-ui/core";
 import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { Redirect } from "react-router-dom";
+import M from 'materialize-css'
 
 const useStyles = makeStyles((theme) => ({
   question: {
@@ -19,6 +21,7 @@ function Questions(props) {
   const [index, setIndex] = useState(0);
   const [answer, setAnswer] = useState("");
   const [correct, setCorrect] = useState(0);
+  const [refferrer,setRefferrer] = useState(false);
   const classes = useStyles();
   useEffect(async () => {
     console.log('fetching from:',props.topic);
@@ -40,21 +43,29 @@ function Questions(props) {
   const handleClick = () => {
     if (answer === "") return;
     if (index < Math.min(10,questions.length) && answer.toLocaleLowerCase() === questions[index].answer.toLowerCase()) {
-      alert("Your answer is correct");
+      // alert("Your answer is correct");
+      M.toast({ html: "Your answer is correct", classes: '#42a5f5 blue lighten-1' })
       setIndex(index + 1);
       setCorrect(correct + 1);
       if (index + 1 < Math.min(10,questions.length)) {
         setCurrent(questions[index + 1]);
         setAnswer("");
-      } else alert(`End of test. Your Score is ${correct}/${Math.min(10,questions.length)}`);
+      } else {
+        // alert(`End of test. Your Score is ${correct}/${Math.min(10,questions.length)}`);
+        M.toast({ html: `End of test. Your Score is ${correct}/${Math.min(10,questions.length)}`, classes: '#81c784 green lighten-2' })
+        setRefferrer(true);
+      }
     } else {
-      alert(`Wrong ans, Correct answer is ${current.answer}`);
+      // alert(`Wrong ans, Correct answer is ${current.answer}`);
+      M.toast({ html: `Wrong ans, Correct answer is ${current.answer}`, classes: '#42a5f5 blue lighten-1' })
       setIndex(index + 1);
       if (index + 1 < Math.min(10,questions.length)) {
         setCurrent(questions[index + 1]);
         setAnswer("");
       } else {
-        alert(`End of test. Your Score is ${correct}/${Math.min(10,questions.length)}`);
+        // alert(`End of test. Your Score is ${correct}/${Math.min(10,questions.length)}`);
+        M.toast({ html: `End of test. Your Score is ${correct}/${Math.min(10,questions.length)}`, classes: '#f44336 red lighten-1' })
+        setRefferrer(true)
       }
     }
   };
@@ -70,6 +81,10 @@ function Questions(props) {
   //         })
   //     }
   // }
+
+  if(refferrer === true){
+    return <Redirect to='/ready'/>
+  }
 
   return questions !== null && questions != undefined ? (
     <div className={classes.question}>

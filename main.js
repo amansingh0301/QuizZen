@@ -256,7 +256,7 @@ webSocket.on("request", async (req) => {
 
 const findRoom = (data,connection) => {
   const roomName = data.room;
-  if(rooms.length === 0 && data.type==='create'){
+  if((rooms.length === 0 || rooms.length>0) && data.type==='create'){
     rooms.push({
       room:roomName,
       users :[
