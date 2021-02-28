@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   image: {
     // url(https://source.unsplash.com/random)
-    backgroundImage: "url(/quiz.jpg)",
+    backgroundImage: "url(https://res.cloudinary.com/quizzen-app/image/upload/v1614498636/quiz_gdfkd9.jpg)",
     backgroundRepeat: "no-repeat",
     backgroundColor:
       theme.palette.type === "light"
